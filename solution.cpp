@@ -64,9 +64,10 @@ void addFileHelper(File *f, FileTrieNode *t, size_t index)
     addFileHelper(f, nextNode, index + 1);
 }
 
-void deleteTree(FileTrieNode *t)
-{
-}
+// void deleteTree(FileTrieNode *t)
+// {
+
+// }
 
 /**
  * @brief Retrieves all files in the FileAVL whose file sizes are within [min, max]
@@ -125,5 +126,5 @@ std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefi
 
 FileTrie::~FileTrie()
 {
-    deleteTree(head);
+    // deleteTree(head);
 }
