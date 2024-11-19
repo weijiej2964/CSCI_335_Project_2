@@ -4,7 +4,7 @@
 int main()
 {
     FileAVL avl = FileAVL();
-    FileTrie f = FileTrie();
+    // FileTrie f = FileTrie();
 
     File file1 = File("file1", "this is my first file ever yay");
     File file2 = File("file2", "this is my first file ever");
@@ -28,15 +28,15 @@ int main()
 
     // std::cout << file4.getSize();
 
-    f.addFile(&file1);
-    f.addFile(&file2);
+    // f.addFile(&file1);
+    // f.addFile(&file2);
 
-    std::unordered_set<File *> f_set = f.getFilesWithPrefix("q");
-    std::cout << "prefix search result" << "\n";
-    for (File *file : f_set)
-    {
-        std::cout << file->getName() << "\n";
-    }
+    // std::unordered_set<File *> f_set = f.getFilesWithPrefix("q");
+    // std::cout << "prefix search result" << "\n";
+    // for (File *file : f_set)
+    // {
+    //     std::cout << file->getName() << "\n";
+    // }
 
     return 0;
 }

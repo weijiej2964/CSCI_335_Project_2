@@ -92,11 +92,6 @@ std::vector<File *> FileAVL::query(size_t min, size_t max)
     return result;
 }
 
-FileTrie::FileTrie()
-{
-    head = new FileTrieNode();
-}
-
 void FileTrie::addFile(File *f)
 {
     addFileHelper(f, head, 0);
@@ -119,6 +114,4 @@ std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefi
     return cur_node->matching;
 }
 
-FileTrie::~FileTrie()
-{
-}
+FileTrie::~FileTrie() {}
