@@ -97,11 +97,6 @@ std::vector<File *> FileAVL::query(size_t min, size_t max)
     return result;
 }
 
-FileTrie::FileTrie()
-{
-    // head = new FileTrieNode();
-}
-
 void FileTrie::addFile(File *f)
 {
     // addFileHelper(f, head, 0);
