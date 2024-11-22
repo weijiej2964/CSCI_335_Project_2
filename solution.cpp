@@ -1,4 +1,5 @@
 #include "FileAVL.hpp"
+#include "File.hpp"
 #include "FileTrie.hpp"
 
 // ALL YOUR CODE SHOULD BE IN THIS FILE. NO MODIFICATIONS SHOULD BE MADE TO FILEAVL / FILE CLASSES
@@ -114,4 +115,4 @@ std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefi
     return cur_node->matching;
 }
 
-FileTrie::~FileTrie() {}
+// FileTrie::~FileTrie() {}

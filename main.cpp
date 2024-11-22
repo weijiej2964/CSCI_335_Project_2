@@ -1,4 +1,5 @@
 #include "FileTrie.hpp"
+#include "File.hpp"
 #include "FileAVL.hpp"
 
 int main()
