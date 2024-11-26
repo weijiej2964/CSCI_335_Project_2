@@ -1,7 +1,7 @@
 #include "FileAVL.hpp"
-#include "File.hpp"
 #include "FileTrie.hpp"
-
+#include <algorithm>
+#include <cctype>
 // ALL YOUR CODE SHOULD BE IN THIS FILE. NO MODIFICATIONS SHOULD BE MADE TO FILEAVL / FILE CLASSES
 // You are permitted to make helper functions (and most likely will need to)
 // You must declare them "inline" | declare & implement them at the top of this file, before query()
@@ -50,17 +50,19 @@ void addFileHelper(File *f, FileTrieNode *t, size_t index)
         return;
     }
     t->matching.insert(f);
-    std::cout << "Prefix: " << t->stored << " \n";
-    for (auto it = t->matching.begin(); it != t->matching.end(); it++)
-    {
-        std::cout << *it << "\n";
-    }
+    // std::cout << "Prefix: " << t->stored << " \n";
+    // for (auto it = t->matching.begin(); it != t->matching.end(); it++)
+    // {
+    //     std::cout << *it << "\n";
+    // }
 
-    if (auto search = t->next.find(f->getName()[index]); search == t->next.end())
+    std::string filename = f->getName();
+    transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+    if (auto search = t->next.find(filename[index]); search == t->next.end())
     {
-        t->next[f->getName()[index]] = new FileTrieNode(f->getName()[index]);
+        t->next[filename[index]] = new FileTrieNode(filename[index]);
     }
-    FileTrieNode *nextNode = t->next[f->getName()[index]];
+    FileTrieNode *nextNode = t->next[filename[index]];
 
     addFileHelper(f, nextNode, index + 1);
 }
@@ -85,13 +87,14 @@ std::vector<File *> FileAVL::query(size_t min, size_t max)
         max = temp;
     }
     queryHelper(&result, root_, min, max);
-    for (File *f : result)
-    {
-        std::cout << f->getName() << " : " << f->getSize() << "\n";
-    }
 
     return result;
 }
+
+// FileTrie::FileTrie()
+// {
+//     head = new FileTrieNode();
+// }
 
 void FileTrie::addFile(File *f)
 {
@@ -101,17 +104,18 @@ void FileTrie::addFile(File *f)
 std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefix) const
 {
     FileTrieNode *cur_node = head;
-    for (size_t i = 0; i < prefix.size(); i++)
+    std::string prefixName = prefix;
+    transform(prefixName.begin(), prefixName.end(), prefixName.begin(), ::tolower);
+
+    for (auto it = prefixName.begin(); it != prefixName.end(); it++)
     {
-        if (cur_node->next.find(prefix[i]) != cur_node->next.end())
+        if (cur_node->next.find(*it) == cur_node->next.end())
         {
-            cur_node = cur_node->next[prefix[i]];
+            return std::unordered_set<File *>();
         }
-        else
-        {
-            return {};
-        }
+        cur_node = cur_node->next[*it];
     }
+
     return cur_node->matching;
 }
 
